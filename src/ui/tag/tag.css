@@ -1,0 +1,21 @@
+.tag{
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+    align-items: center;
+}
+.tag__text{
+    font-size: 14px;
+    font-family: "Source Code Pro", monospace;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--grey-2-color);
+}
+
+.tag__circle{
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    background-color: var(--grey-3-color);
+}
