@@ -1,0 +1,20 @@
+.new-card{
+    border-radius: 12px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+
+    -webkit-box-shadow: 0 4px 10px 5px rgba(205, 170, 170, 0.25);
+    -moz-box-shadow: 0 4px 10px 5px rgba(205, 170, 170, 0.25);
+    box-shadow: 0 4px 10px 5px rgba(205, 170, 170, 0.25);
+}
+
+.new-card__body{
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+    row-gap: 24px;
+}
