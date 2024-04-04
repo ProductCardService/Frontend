@@ -1,0 +1,56 @@
+:root{
+    --blue-color: #216EC9;
+    --grey-color: #3C3C43;
+    --white-color: white;
+}
+
+.btn{
+    font-size: 12px;
+    font-family: "Source Code Pro", monospace;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+
+    padding: 8px 12px;
+    border-width: 1px;
+    border-radius: 100px;
+    border-style: solid;
+}
+.btn:hover{
+    transition: 0.5s;
+    cursor: pointer;
+}
+.btn:active{
+    transform: scale(0.8);
+    transition: 0.5s;
+}
+
+.fill-blue-btn{
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    border-color: var(--blue-color);
+}
+.fill-blue-btn:hover{
+    background-color: var(--white-color);
+    color: var(--blue-color);
+}
+
+.outline-blue-btn{
+    background-color: var(--white-color);
+    color: var(--blue-color);
+    border-color: var(--blue-color);
+}
+.outline-blue-btn:hover{
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
+
+.outline-grey-btn{
+    background-color: var(--white-color);
+    color: var(--grey-color);
+    border-color: var(--grey-color);
+}
+.outline-grey-btn:hover{
+    background-color: var(--grey-color);
+    color: var(--white-color);
+}
