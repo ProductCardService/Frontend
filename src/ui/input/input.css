@@ -1,0 +1,13 @@
+.input{
+    font-size: 12px;
+    font-family: "Source Code Pro", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+    padding: 8px 16px;
+    color: var(--grey-2-color);
+    width: 100%;
+    border: 1px var(--grey-color) solid;
+    border-radius: 100px;
+}
