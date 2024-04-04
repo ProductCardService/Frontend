@@ -6,13 +6,13 @@ enum ButtonType {
     OutlineBlue = "outline-blue-btn",
     OutlineGrey = "outline-grey-btn",
 }
-interface buttonProps{
+interface ButtonProps{
     title: string,
     onClick: () => void,
     buttonType: ButtonType
 }
 
-const Button: React.FC<buttonProps> = (props) => {
+const Button: React.FC<ButtonProps> = (props) => {
     const {title, onClick, buttonType} = props;
     return (
         <button
