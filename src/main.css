@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap');
 :root{
     --blue-color: #216EC9;
     --grey-color: #3C3C43;
     --white-color: white;
     --grey-2-color: #666666;
+    --grey-3-color: #DEDEDE;
 }
