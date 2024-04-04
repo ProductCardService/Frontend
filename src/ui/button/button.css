@@ -48,3 +48,13 @@
     background-color: var(--grey-color);
     color: var(--white-color);
 }
+
+.fill-grey-btn{
+    background-color: var(--grey-color);
+    color: var(--white-color);
+    border-color: var(--grey-color);
+}
+.fill-grey-btn:hover{
+    background-color: var(--white-color);
+    color: var(--grey-color);
+}

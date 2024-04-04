@@ -5,6 +5,7 @@ enum ButtonType {
     FillBlue = "fill-blue-btn",
     OutlineBlue = "outline-blue-btn",
     OutlineGrey = "outline-grey-btn",
+    FillBGrey = "fill-grey-btn",
 }
 interface ButtonProps{
     title: string,
