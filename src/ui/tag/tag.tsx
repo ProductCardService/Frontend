@@ -3,12 +3,13 @@ import React from "react";
 
 interface TagProps{
     title: string,
+    onClick?: () => void
 }
 
 const Tag: React.FC<TagProps> = (props) => {
-    const {title} = props;
+    const {title, onClick = () => null} = props;
     return (
-        <div className="tag">
+        <div className="tag" onClick={onClick}>
             <span className="tag__circle"></span>
             <span className="tag__text">
                 {title}
