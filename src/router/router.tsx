@@ -1,6 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
 import CardListPage from "../pages/card-list.tsx";
-import EditCardPage from "../pages/edit-card.tsx";
+import CreateCardPage from "../pages/edit-or-create-card.tsx";
 
 const router = createBrowserRouter([
     {
@@ -8,13 +8,13 @@ const router = createBrowserRouter([
         element: <CardListPage />
     },
     {
-        path: "/cards",
-        element: <CardListPage />
+        path: "/create",
+        element: <CreateCardPage />
     },
     {
-        path: "/cards/:cardId",
-        element: <EditCardPage />
-    },
+        path: "/edit/:cardId",
+        element: <CreateCardPage />
+    }
 ]);
 
 export default router;
