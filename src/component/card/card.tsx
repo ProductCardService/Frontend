@@ -11,10 +11,11 @@ interface CardProps{
     title: string,
     description: string,
     tags: Array<string>,
-    editCard: () => void
+    editCard: () => void,
+    deleteCard: () => void
 }
 const Card: React.FC<CardProps> = (props) => {
-    const {id, title, description, tags, editCard} = props;
+    const {id, title, description, tags, editCard, deleteCard} = props;
     const [image, setImage] = useState<string>("");
     useEffect(() => {
         getCardImageById(id)
@@ -39,7 +40,8 @@ const Card: React.FC<CardProps> = (props) => {
                     <Paragraph text={"Сюда подтягивается инфо по нутриентам"}/>
                 </div>
                 <div className="card__buttons">
-                    <Button title={"Редактировать карточку"} buttonType={ButtonType.OutlineGrey} onClick={editCard}/>
+                    <Button title={"Редактировать"} buttonType={ButtonType.FillBGrey} onClick={editCard}/>
+                    <Button title={"Удалить"} buttonType={ButtonType.OutlineGrey} onClick={deleteCard}/>
                 </div>
             </div>
         </div>

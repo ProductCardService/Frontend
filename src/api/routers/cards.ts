@@ -43,6 +43,12 @@ const getCards = async (): Promise<CardList> => {
                         title: "Борщ",
                         description: mockDescriptions[0],
                         tags: mockTags
+                    },
+                    {
+                        id: 2,
+                        title: "Борщ 2",
+                        description: mockDescriptions[1],
+                        tags: mockTags
                     }
                 ]
             }
