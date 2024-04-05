@@ -1,9 +1,20 @@
 import Card from "../component/card/card.tsx";
 import NewCard from "../component/new-card/new-card.tsx";
 import { useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {FullCard} from "../api/schemas/cards.ts.ts";
+import {getCards} from "../api/routers/cards.ts";
 
 const CardListPage = () => {
     const navigate = useNavigate();
+    const [cards, setCards] = useState<Array<FullCard>>([])
+    useEffect(() => {
+        getCards()
+            .then(cardList => {
+                setCards(cardList.cards.map(card => ({...card, image: ""})))
+            })
+    }, []);
+
     const createCard = (title: string) => {
         navigate(`/create?title=${title}`);
     }
@@ -13,14 +24,18 @@ const CardListPage = () => {
     return(
         <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", columnGap: "24px", rowGap: "24px", padding: "76px 80px 0"}}>
             <NewCard createCard={createCard}/>
-            <Card
-                title={`Куриный салат`}
-                description={'Лапша с курицей - это популярное блюдо, представляющее собой сочетание отварной или жареной курицы с вареной лапшой. Может быть приправлено разнообразными специями и соусами, в зависимости от рецепта и кулинарных традиций.'}
-                tags={["Курица", "Салат"]}
-                image={'https://worldpodium.ru/sites/default/files/sedlo-barashka_0.jpg'}
-                editCard={() => editCard(1) }
-            />
-
+            {
+                cards.map(card => (
+                    <Card
+                        key={card.id}
+                        id={card.id}
+                        title={card.title}
+                        description={card.description}
+                        tags={card.tags}
+                        editCard={() => editCard(card.id) }
+                    />
+                ))
+            }
         </div>
     )
 }

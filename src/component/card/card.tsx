@@ -1,19 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./card.css";
 import Heading from "../../ui/heading/heading.tsx";
 import Paragraph from "../../ui/paragraph/paragraph.tsx";
 import {Button, ButtonType} from "../../ui/button/button.tsx";
 import Tag from "../../ui/tag/tag.tsx";
+import {getCardImageById} from "../../api/routers/cards.ts";
 
 interface CardProps{
+    id: number,
     title: string,
     description: string,
     tags: Array<string>,
-    image: string,
     editCard: () => void
 }
 const Card: React.FC<CardProps> = (props) => {
-    const {title, description, image, tags, editCard} = props;
+    const {id, title, description, tags, editCard} = props;
+    const [image, setImage] = useState<string>("");
+    useEffect(() => {
+        getCardImageById(id)
+        .then(cardImage => setImage(cardImage.image))
+    }, [id]);
     return(
         <div className="card">
             <div className="card__image" style={{backgroundImage: `url(${image})`}}>
