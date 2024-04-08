@@ -3,6 +3,7 @@ import CreateCard from "../component/create-card/create-card.tsx";
 import {useEffect, useState} from "react";
 import {generateImages, generateDescriptions, generateTags} from "../api/routers/ai.ts";
 import {createCard, getCardById, updateCardById} from "../api/routers/cards.ts";
+import {toast} from "react-toastify";
 
 const CreateCardPage = () => {
     const location = useLocation();
@@ -14,8 +15,11 @@ const CreateCardPage = () => {
     const isEditMode = location.pathname.startsWith("/edit");
 
     const [descriptions, setDescriptions] = useState<Array<string>>(["", "", "", ""])
+    const [descriptionsLoading, setDescriptionsLoading] = useState(false)
     const [images, setImages] = useState<Array<string>>(["", "", "", ""])
+    const [imagesLoading, setImagesLoading] = useState(false)
     const [tags, setTags] = useState<Array<string>>([])
+    const [tagsLoading, setTagsLoading] = useState(false)
     const [title, setTitle] = useState<string>("")
 
     useEffect(() => {
@@ -40,16 +44,64 @@ const CreateCardPage = () => {
     }, [isCreateMode, searchParam, isEditMode, cardId, navigate]);
 
     const regenerateImages = async () => {
-        const data = await generateImages({title: title});
-        setImages(data.images)
+        if (!imagesLoading){
+            setImagesLoading(true)
+            const data = await generateImages({title: title});
+            setImages(data.images)
+            setImagesLoading(false)
+            toast.success("Генерация изображений завершена")
+        } else {
+            toast.warning("Пожалуйста дождитесь окончания текущей генерации изображений")
+        }
     }
     const regenerateDescriptions = async () => {
-        const data = await generateDescriptions({title: title});
-        setDescriptions(data.descriptions)
+        if (!descriptionsLoading){
+            setDescriptionsLoading(true)
+            const data = await generateDescriptions({title: title});
+            setDescriptions(data.descriptions)
+            setDescriptionsLoading(false)
+            toast.success("Генерация описаний завершена")
+        } else {
+            toast.warning("Пожалуйста дождитесь окончания текущей генерации описаний")
+        }
     }
     const regenerateTags = async () => {
-        const data = await generateTags({title: title});
-        setTags(data.tags)
+        if (!tagsLoading){
+            setTagsLoading(true)
+            const data = await generateTags({title: title});
+            setTags(data.tags)
+            setTagsLoading(false)
+            toast.success("Генерация тегов завершена")
+        } else {
+            toast.warning("Пожалуйста дождитесь окончания текущей генерации тэгов")
+        }
+    }
+
+    const regenerateAll = () => {
+        if (!tagsLoading && !imagesLoading && !descriptionsLoading){
+            setImagesLoading(true)
+            setDescriptionsLoading(true)
+            setTagsLoading(true)
+            const titleData = {title: title}
+            Promise.allSettled([generateImages(titleData), generateDescriptions(titleData), generateTags(titleData)])
+                .then(res => {
+                    if (res[0].status ===  "fulfilled"){
+                        setImages(res[0].value.images)
+                    }
+                    if (res[1].status ===  "fulfilled"){
+                        setDescriptions(res[1].value.descriptions)
+                    }
+                    if (res[2].status ===  "fulfilled"){
+                        setTags(res[2].value.tags)
+                    }
+                    toast.success("Генерация карточки завершена")
+                    setImagesLoading(false)
+                    setDescriptionsLoading(false)
+                    setTagsLoading(false)
+                })
+        } else if (tagsLoading && imagesLoading && descriptionsLoading){
+            toast.warning("Пожалуйста дождитесь окончания генерации карточки")
+        }
     }
 
     const saveOrEditCard = async () => {
@@ -101,6 +153,7 @@ const CreateCardPage = () => {
                 regenerateImages={regenerateImages}
                 regenerateDescriptions={regenerateDescriptions}
                 regenerateTags={regenerateTags}
+                regenerateAll={regenerateAll}
                 removeTag={removeTag}
                 addTag={addTag}
             />

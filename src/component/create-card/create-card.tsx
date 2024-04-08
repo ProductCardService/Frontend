@@ -26,20 +26,15 @@ interface CreateCardProps{
     regenerateImages: () => void,
     regenerateDescriptions: () => void,
     regenerateTags: () => void,
+    regenerateAll: () => void,
 }
 const CreateCard: React.FC<CreateCardProps> = (props) => {
     const {
         title, saveCard, exit, description, descriptionVariant, setDescriptionVariant,
         imageVariant, setImageVariant, image, tags, removeTag, addTag,
-        regenerateImages, regenerateDescriptions, regenerateTags
+        regenerateImages, regenerateDescriptions, regenerateTags, regenerateAll
     } = props;
     const [newTag, setNewTag] = useState<string>("");
-
-    const regenerateAll = () => {
-        regenerateDescriptions();
-        regenerateTags();
-        regenerateImages();
-    }
 
     return(
         <div className="card">
