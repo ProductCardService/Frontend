@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     width: 300px;
+    min-height: 550px;
 
     -webkit-box-shadow: 0 4px 10px 5px rgba(205, 170, 170, 0.25);
     -moz-box-shadow: 0 4px 10px 5px rgba(205, 170, 170, 0.25);
