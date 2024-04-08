@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = (props) => {
                     <Paragraph text={"Сюда подтягивается инфо по нутриентам"}/>
                 </div>
                 <div className="card__buttons">
-                    <Button title={"Редактировать"} buttonType={ButtonType.FillBGrey} onClick={editCard}/>
+                    <Button title={"Редактировать"} buttonType={ButtonType.FillBlue} onClick={editCard}/>
                     <Button title={"Удалить"} buttonType={ButtonType.OutlineGrey} onClick={deleteCard}/>
                 </div>
             </div>

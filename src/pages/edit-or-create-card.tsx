@@ -72,6 +72,10 @@ const CreateCardPage = () => {
         navigate("/");
     }
 
+    const returnToCardListPage = () => {
+        navigate("/");
+    }
+
     const [descriptionVariant, setDescriptionVariant] = useState(0);
     const [imageVariant, setImageVariant] = useState(0);
     const removeTag = (tag: string) => {
@@ -93,6 +97,7 @@ const CreateCardPage = () => {
                 tags={tags}
                 image={images[imageVariant]}
                 saveCard={saveOrEditCard}
+                exit={returnToCardListPage}
                 regenerateImages={regenerateImages}
                 regenerateDescriptions={regenerateDescriptions}
                 regenerateTags={regenerateTags}

@@ -21,7 +21,7 @@ const NewCard: React.FC<NewCardProps> = (props) => {
             <div className="new-card__body">
                 <Heading title="Добавить новый продукт" />
                 <Input placeholder={"Введите название продукта..."} value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <Button title={"Перейти к генерации"} buttonType={ButtonType.FillBGrey} onClick={createCardWithCheckingTitle}/>
+                <Button title={"Перейти к генерации"} buttonType={ButtonType.FillBlue} onClick={createCardWithCheckingTitle}/>
             </div>
         </div>
     )

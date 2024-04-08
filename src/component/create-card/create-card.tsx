@@ -22,13 +22,14 @@ interface CreateCardProps{
     addTag: (tag: string) => void,
     image: string,
     saveCard: () => void,
+    exit: () => void,
     regenerateImages: () => void,
     regenerateDescriptions: () => void,
     regenerateTags: () => void,
 }
 const CreateCard: React.FC<CreateCardProps> = (props) => {
     const {
-        title, saveCard, description, descriptionVariant, setDescriptionVariant,
+        title, saveCard, exit, description, descriptionVariant, setDescriptionVariant,
         imageVariant, setImageVariant, image, tags, removeTag, addTag,
         regenerateImages, regenerateDescriptions, regenerateTags
     } = props;
@@ -81,7 +82,8 @@ const CreateCard: React.FC<CreateCardProps> = (props) => {
                 </div>
                 <div className="card__buttons">
                     <Button title={"Сохранить"} buttonType={ButtonType.FillBlue} onClick={saveCard}/>
-                    <Button title={"Регенерация"} buttonType={ButtonType.OutlineBlue} onClick={regenerateAll}/>
+                    <Button title={"Генерация"} buttonType={ButtonType.OutlineBlue} onClick={regenerateAll}/>
+                    <Button title={"🚪"} buttonType={ButtonType.OutlineBlue} onClick={exit}/>
                 </div>
             </div>
         </div>
