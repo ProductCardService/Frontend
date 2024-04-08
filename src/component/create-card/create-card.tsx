@@ -78,7 +78,7 @@ const CreateCard: React.FC<CreateCardProps> = (props) => {
                         </button>
                     </div>
                     <Heading title={"Нутриенты"} />
-                    <Paragraph text={"Сюда подтягивается инфо по нутриентам"}/>
+                    <Paragraph text={"Информация по нутриентам"}/>
                 </div>
                 <div className="card__buttons">
                     <Button title={"Сохранить"} buttonType={ButtonType.FillBlue} onClick={saveCard}/>

@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = (props) => {
                         }
                     </div>
                     <Heading title={"Нутриенты"} />
-                    <Paragraph text={"Сюда подтягивается инфо по нутриентам"}/>
+                    <Paragraph text={"Информация по нутриентам"}/>
                 </div>
                 <div className="card__buttons">
                     <Button title={"Редактировать"} buttonType={ButtonType.FillBlue} onClick={editCard}/>
