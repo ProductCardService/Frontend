@@ -3,6 +3,7 @@ import "./new-card.css";
 import Heading from "../../ui/heading/heading.tsx";
 import {Button, ButtonType} from "../../ui/button/button.tsx";
 import Input from "../../ui/input/input.tsx";
+import { toast } from 'react-toastify';
 
 interface NewCardProps{
     createCard: (title: string) => void
@@ -14,7 +15,7 @@ const NewCard: React.FC<NewCardProps> = (props) => {
         if (title !== ""){
             createCard(title)
         }
-        // TODO - add notification and extra validation
+        toast.warning("Пожалуйста введите название продукта")
     }
     return(
         <div className="new-card">
