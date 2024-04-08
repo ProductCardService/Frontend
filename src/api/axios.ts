@@ -1,11 +1,18 @@
 import axios from "axios";
+const MODE = import.meta.env.VITE_MODE;
 
-const card_axios = axios.create({
-    baseURL: "http://localhost:8088"
+let cardBaseURL = undefined;
+let aiBaseURL = undefined;
+if (MODE !== "production"){
+    cardBaseURL = import.meta.env.VITE_CARDS_API_HOST || "";
+    aiBaseURL = import.meta.env.VITE_AI_GENERATOR_API_HOST || "";
+}
+const cardAxios = axios.create({
+    baseURL: cardBaseURL
 });
 
-const ai_axios = axios.create({
-    baseURL: "http://localhost:8088"
+const aiAxios = axios.create({
+    baseURL: aiBaseURL
 });
 
-export {card_axios, ai_axios};
+export {cardAxios, aiAxios};
