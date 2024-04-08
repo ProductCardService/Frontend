@@ -14,8 +14,9 @@ const NewCard: React.FC<NewCardProps> = (props) => {
     const createCardWithCheckingTitle = () => {
         if (title !== ""){
             createCard(title)
+        } else {
+            toast.warning("Пожалуйста введите название продукта")
         }
-        toast.warning("Пожалуйста введите название продукта")
     }
     return(
         <div className="new-card">
