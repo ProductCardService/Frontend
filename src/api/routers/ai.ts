@@ -1,4 +1,4 @@
-import {ai_axios} from "../axios.ts";
+import {aiAxios} from "../axios.ts";
 import {GeneratedDescriptions, Prompt, GeneratedImages, GeneratedTags} from '../schemas/ai.ts';
 import {AxiosError} from "axios";
 import {mockDescriptions, mockImages, mockTags} from "../../mockData.ts";
@@ -9,7 +9,7 @@ const GENERATE_TAGS_URL = "/generate/tags";
 
 const generateDescriptions = async (prompt: Prompt): Promise<GeneratedDescriptions> => {
     try{
-        const response = await ai_axios.post(
+        const response = await aiAxios.post(
             GENERATE_DESCRIPTIONS_URL,
             prompt
         );
@@ -27,7 +27,7 @@ const generateDescriptions = async (prompt: Prompt): Promise<GeneratedDescriptio
 
 const generateImages = async (prompt: Prompt): Promise<GeneratedImages> => {
     try{
-        const response = await ai_axios.post(
+        const response = await aiAxios.post(
             GENERATE_IMAGES_URL,
             prompt
         );
@@ -45,7 +45,7 @@ const generateImages = async (prompt: Prompt): Promise<GeneratedImages> => {
 
 const generateTags = async (prompt: Prompt): Promise<GeneratedTags> => {
     try{
-        const response = await ai_axios.post(
+        const response = await aiAxios.post(
             GENERATE_TAGS_URL,
             prompt
         );

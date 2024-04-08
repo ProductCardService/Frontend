@@ -1,4 +1,4 @@
-import {ai_axios} from "../axios.ts";
+import {cardAxios} from "../axios.ts";
 import {CreateUpdateCard, Card, CardList, FullCard, CardImage} from '../schemas/cards.ts.ts';
 import {AxiosError} from "axios";
 import {mockDescriptions, mockImages, mockTags} from "../../mockData.ts";
@@ -9,7 +9,7 @@ const IMAGE_FOR_CARD_URL = (card_id: number) => `/cards/${card_id}/image`;
 
 const createCard = async (card: CreateUpdateCard): Promise<Card> => {
     try{
-        const response = await ai_axios.post(
+        const response = await cardAxios.post(
             CARDS_URL,
             card
         );
@@ -30,7 +30,7 @@ const createCard = async (card: CreateUpdateCard): Promise<Card> => {
 
 const getCards = async (): Promise<CardList> => {
     try{
-        const response = await ai_axios.get(
+        const response = await cardAxios.get(
             CARDS_URL
         );
         return response.data;
@@ -60,7 +60,7 @@ const getCards = async (): Promise<CardList> => {
 
 const getCardById = async (cardId: number): Promise<FullCard> => {
     try{
-        const response = await ai_axios.get(
+        const response = await cardAxios.get(
             CARD_WITH_ID_URL + cardId.toString()
         );
         return response.data;
@@ -81,7 +81,7 @@ const getCardById = async (cardId: number): Promise<FullCard> => {
 
 const updateCardById = async (cardId: number, card: CreateUpdateCard): Promise<Card> => {
     try{
-        const response = await ai_axios.put(
+        const response = await cardAxios.put(
             CARD_WITH_ID_URL + cardId.toString(),
             card
         );
@@ -102,7 +102,7 @@ const updateCardById = async (cardId: number, card: CreateUpdateCard): Promise<C
 
 const deleteCardById = async (cardId: number): Promise<void> => {
     try{
-        await ai_axios.delete(
+        await cardAxios.delete(
             CARD_WITH_ID_URL + cardId.toString()
         );
     } catch (error) {
@@ -116,7 +116,7 @@ const deleteCardById = async (cardId: number): Promise<void> => {
 
 const getCardImageById = async (cardId: number): Promise<CardImage> => {
     try{
-        const response = await ai_axios.get(
+        const response = await cardAxios.get(
             IMAGE_FOR_CARD_URL(cardId)
         );
         return response.data;
