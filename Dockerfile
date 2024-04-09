@@ -1,6 +1,7 @@
 FROM node:20.11-alpine as react_build
 WORKDIR /app
 COPY . .
+ENV VITE_MODE=production
 RUN npm install
 RUN npm run build
 
