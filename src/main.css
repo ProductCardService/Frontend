@@ -8,3 +8,6 @@
     --grey-3-color: #DEDEDE;
     --red-color: #FF3333;
 }
+.react-loading-skeleton{
+    line-height: normal !important;
+}
