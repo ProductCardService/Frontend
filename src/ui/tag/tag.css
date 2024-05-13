@@ -19,12 +19,25 @@
     height: 16px;
     width: 16px;
     background-color: var(--grey-3-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag__circle span{
+    color: var(--grey-3-color);
 }
 .tag_removable:hover{
     .tag__text{
+        transition: 1s;
         color: var(--red-color);
     }
     .tag__circle{
+        transition: 1s;
         background-color: var(--red-color);
     }
+    .tag__circle span{
+        transition: 1s;
+        color: var(--white-color);
+    }
+
 }
