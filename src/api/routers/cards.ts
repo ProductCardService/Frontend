@@ -1,7 +1,7 @@
 import {cardAxios} from "../axios.ts";
 import {CreateUpdateCard, Card, CardList, FullCard, CardImage} from '../schemas/cards.ts.ts';
 import {AxiosError} from "axios";
-import {mockDescriptions, mockImages, mockTags} from "../../mockData.ts";
+import {mockCards, mockImages} from "../../mockData.ts";
 
 const CARDS_URL = "/cards";
 const CARD_WITH_ID_URL = "/cards/";
@@ -38,18 +38,8 @@ const getCards = async (): Promise<CardList> => {
         if ((error as AxiosError).code === "ERR_NETWORK"){
             return {
                 cards: [
-                    {
-                        id: 1,
-                        title: "Борщ",
-                        description: mockDescriptions[0],
-                        tags: mockTags
-                    },
-                    {
-                        id: 2,
-                        title: "Борщ 2",
-                        description: mockDescriptions[1],
-                        tags: mockTags
-                    }
+                    mockCards[0],
+                    mockCards[3]
                 ]
             }
         }
@@ -66,13 +56,9 @@ const getCardById = async (cardId: number): Promise<FullCard> => {
         return response.data;
     } catch (error) {
         if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                id: 1,
-                title: "Борщ",
-                description: mockDescriptions[0],
-                tags: mockTags,
-                image: mockImages[0]
-            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            return mockCards[cardId]
         }
         console.log(error);
         throw Error("Ошибка");
@@ -88,12 +74,9 @@ const updateCardById = async (cardId: number, card: CreateUpdateCard): Promise<C
         return response.data;
     } catch (error) {
         if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                id: cardId,
-                title: card.title,
-                description: card.description,
-                tags: card.tags,
-            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            return {...mockCards[cardId]}
         }
         console.log(error);
         throw Error("Ошибка");
@@ -123,7 +106,7 @@ const getCardImageById = async (cardId: number): Promise<CardImage> => {
     } catch (error) {
         if ((error as AxiosError).code === "ERR_NETWORK"){
             return {
-                image: mockImages[0]
+                image: mockImages[cardId]
             }
         }
         console.log(error);
