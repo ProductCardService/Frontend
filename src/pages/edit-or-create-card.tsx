@@ -15,11 +15,11 @@ const CreateCardPage = () => {
     const isEditMode = location.pathname.startsWith("/edit");
 
     const [descriptions, setDescriptions] = useState<Array<string>>(["", "", "", ""]);
-    const [descriptionsLoading, setDescriptionsLoading] = useState(false);
+    const [descriptionsLoading, setDescriptionsLoading] = useState(true);
     const [images, setImages] = useState<Array<string>>(["", "", "", ""]);
-    const [imagesLoading, setImagesLoading] = useState(false);
+    const [imagesLoading, setImagesLoading] = useState(true);
     const [tags, setTags] = useState<Array<string>>([]);
-    const [tagsLoading, setTagsLoading] = useState(false);
+    const [tagsLoading, setTagsLoading] = useState(true);
     const [title, setTitle] = useState<string>("");
     const [descriptionVariant, setDescriptionVariant] = useState(0);
     const [imageVariant, setImageVariant] = useState(0);
@@ -43,9 +43,35 @@ const CreateCardPage = () => {
                 setDescriptions([card.description, "", "", ""]);
                 setImages([card.image, "", "", ""]);
                 setTags(card.tags);
+                setImagesLoading(false);
+                setDescriptionsLoading(false);
+                setTagsLoading(false);
             })
+        } else {
+            const titleFromParam = searchParam.get("title") || ""
+            const titleData = {title: titleFromParam}
+            Promise.allSettled([generateImages(titleData), generateDescriptions(titleData), generateTags(titleData)])
+                .then(res => {
+                    if (res[0].status ===  "fulfilled"){
+                        setImages(res[0].value.images)
+                    }
+                    if (res[1].status ===  "fulfilled"){
+                        setDescriptions(res[1].value.descriptions)
+                    }
+                    if (res[2].status ===  "fulfilled"){
+                        setTags(res[2].value.tags)
+                    }
+                    setDescriptionVariant(0)
+                    setImageVariant(0)
+                    setIsFirstDescriptionOnly(false)
+                    setIsFirstImageOnly(false)
+                    setImagesLoading(false)
+                    setDescriptionsLoading(false)
+                    setTagsLoading(false)
+                })
         }
     }, [isCreateMode, searchParam, isEditMode, cardId, navigate]);
+
 
     const regenerateImages = async () => {
         if (!imagesLoading){
@@ -167,6 +193,9 @@ const CreateCardPage = () => {
                 addTag={addTag}
                 isFirstDescriptionOnly={isFirstDescriptionOnly}
                 isFirstImageOnly={isFirstImageOnly}
+                descriptionsLoading={descriptionsLoading}
+                imagesLoading={imagesLoading}
+                tagsLoading={tagsLoading}
             />
         </div>
     )

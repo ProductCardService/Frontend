@@ -8,6 +8,7 @@ import Switch from "../switch/switch.tsx";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import { ReactComponent as Logo } from './../../assets/regenerate.svg';
+import Skeleton from 'react-loading-skeleton'
 import Input from "../../ui/input/input.tsx";
 
 interface CreateCardProps{
@@ -27,27 +28,42 @@ interface CreateCardProps{
     regenerateDescriptions: () => void,
     regenerateTags: () => void,
     regenerateAll: () => void,
-    isFirstDescriptionOnly: boolean
-    isFirstImageOnly: boolean
+    isFirstDescriptionOnly: boolean,
+    isFirstImageOnly: boolean,
+    descriptionsLoading: boolean,
+    imagesLoading: boolean
+    tagsLoading: boolean
 }
 const CreateCard: React.FC<CreateCardProps> = (props) => {
     const {
         title, saveCard, exit, description, descriptionVariant, setDescriptionVariant,
         imageVariant, setImageVariant, image, tags, removeTag, addTag,
         regenerateImages, regenerateDescriptions, regenerateTags, regenerateAll,
-        isFirstDescriptionOnly, isFirstImageOnly
+        isFirstDescriptionOnly, isFirstImageOnly,
+        descriptionsLoading, imagesLoading, tagsLoading
     } = props;
     const [newTag, setNewTag] = useState<string>("");
 
     return(
         <div className="card">
-            <div className="card__image" style={{backgroundImage: `url(${image})`}}>
-            </div>
+            {
+                imagesLoading
+                ? <Skeleton borderRadius="12px 12px 0 0" height="200px" containerClassName="avatar-skeleton"/>
+                : <div className="card__image" style={{backgroundImage: `url(${image})`}}></div>
+            }
             <div className="card__body">
                 <Switch currentVariant={imageVariant} setVariant={setImageVariant} regenerate={regenerateImages} isFirstOnly={isFirstImageOnly}/>
-                <Heading title={title} />
+                {
+                    title !== ""
+                        ? <Heading title={title} />
+                        : <Skeleton height="23px"/>
+                }
                 <div className="card__content">
-                    <Paragraph text={description}/>
+                    {
+                        descriptionsLoading
+                        ? <Skeleton height="100px"/>
+                        : <div style={{height: "100px"}}><Paragraph text={description}/></div>
+                    }
                     <Switch currentVariant={descriptionVariant} setVariant={setDescriptionVariant} regenerate={regenerateDescriptions} isFirstOnly={isFirstDescriptionOnly}/>
                     <div className="card__tags-container">
                         <div className="card__tags-items">
@@ -66,10 +82,21 @@ const CreateCard: React.FC<CreateCardProps> = (props) => {
                                 }}
                             />
                             {
+                                !tagsLoading &&
                                 tags.map((tag) => (
                                     <Tag key={tag} title={tag} removable={true} onClick={() => removeTag(tag)}/>
                                 ))
                             }
+                            {
+                                tagsLoading &&
+                                [1, 2, 3].map(value => (
+                                    <div key={value} style={{display: "flex", alignItems: "center"}}>
+                                        <Skeleton height="18px" width="80px"/>
+                                    </div>
+                                    )
+                                )
+                            }
+
                         </div>
                         <button onClick={regenerateTags}>
                             <Logo/>
