@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import {useEffect, useState} from "react";
 import {FullCard} from "../api/schemas/cards.ts.ts";
 import {deleteCardById, getCards} from "../api/routers/cards.ts";
+import EmptyCard from "../component/card/empty-card.tsx";
 
 const CardListPage = () => {
     const navigate = useNavigate();
-    const [cards, setCards] = useState<Array<FullCard>>([])
+    const [cards, setCards] = useState<Array<FullCard>>([]);
+    const [isCardsLoading, setIsCardsLoading] = useState(true);
     useEffect(() => {
         getCards()
             .then(cardList => {
-                setCards(cardList.cards.map(card => ({...card, image: ""})))
+                setCards(cardList.cards.map(card => ({...card, image: ""})));
+                setIsCardsLoading(false);
             })
     }, []);
 
@@ -32,6 +35,10 @@ const CardListPage = () => {
         <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", columnGap: "24px", rowGap: "24px", padding: "76px 80px 0"}}>
             <NewCard createCard={createCard}/>
             {
+                isCardsLoading && <EmptyCard/>
+            }
+            {
+                !isCardsLoading &&
                 cards.map(card => (
                     <Card
                         key={card.id}

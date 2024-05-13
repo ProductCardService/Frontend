@@ -5,6 +5,7 @@ import Paragraph from "../../ui/paragraph/paragraph.tsx";
 import {Button, ButtonType} from "../../ui/button/button.tsx";
 import Tag from "../../ui/tag/tag.tsx";
 import {getCardImageById} from "../../api/routers/cards.ts";
+import Skeleton from "react-loading-skeleton";
 
 interface CardProps{
     id: number,
@@ -23,12 +24,23 @@ const Card: React.FC<CardProps> = (props) => {
     }, [id]);
     return(
         <div className="card">
-            <div className="card__image" style={{backgroundImage: `url(${image})`}}>
-            </div>
+            {
+                image === ""
+                    ? <Skeleton borderRadius="12px 12px 0 0" height="200px" containerClassName="avatar-skeleton"/>
+                    : <div className="card__image" style={{backgroundImage: `url(${image})`}}></div>
+            }
             <div className="card__body">
-                <Heading title={title} />
+                {
+                    title !== ""
+                        ? <Heading title={title} />
+                        : <Skeleton height="23px"/>
+                }
                 <div className="card__content">
-                    <Paragraph text={description}/>
+                    {
+                        description === ""
+                            ? <Skeleton height="100px"/>
+                            : <div style={{height: "100px"}}><Paragraph text={description}/></div>
+                    }
                     <div className="card__tags">
                         {
                             tags.map(tag => (
