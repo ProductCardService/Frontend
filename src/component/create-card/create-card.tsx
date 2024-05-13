@@ -67,7 +67,7 @@ const CreateCard: React.FC<CreateCardProps> = (props) => {
                             />
                             {
                                 tags.map((tag) => (
-                                    <Tag key={tag} title={tag} onClick={() => removeTag(tag)}/>
+                                    <Tag key={tag} title={tag} removable={true} onClick={() => removeTag(tag)}/>
                                 ))
                             }
                         </div>

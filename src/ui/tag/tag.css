@@ -20,3 +20,11 @@
     width: 16px;
     background-color: var(--grey-3-color);
 }
+.tag_removable:hover{
+    .tag__text{
+        color: var(--red-color);
+    }
+    .tag__circle{
+        background-color: var(--red-color);
+    }
+}
