@@ -1,8 +1,8 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createHashRouter} from "react-router-dom";
 import CardListPage from "../pages/card-list.tsx";
 import CreateCardPage from "../pages/edit-or-create-card.tsx";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: "/",
         element: <CardListPage />
@@ -16,7 +16,6 @@ const router = createBrowserRouter([
         element: <CreateCardPage />
     }
     ],
-    { basename: '/Frontend' },
 );
 
 export default router;
