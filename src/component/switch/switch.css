@@ -20,11 +20,20 @@
     background-color: var(--blue-color);
     color: var(--white-color);
 }
-.switch:hover{
+.switch_other:hover{
     background-color: var(--blue-color);
     color: var(--white-color);
     opacity: 0.7;
     transition: 0.5s;
+}
+.switch_disabled{
+    color: var(--grey-2-color);
+    border-color: var(--grey-2-color);
+}
+.switch_disabled:hover{
+    cursor: default;
+    color: var(--grey-2-color);
+    border-color: var(--grey-2-color);
 }
 
 .switches{

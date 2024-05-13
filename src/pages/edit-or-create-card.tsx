@@ -14,13 +14,17 @@ const CreateCardPage = () => {
     const isCreateMode = location.pathname.startsWith("/create");
     const isEditMode = location.pathname.startsWith("/edit");
 
-    const [descriptions, setDescriptions] = useState<Array<string>>(["", "", "", ""])
-    const [descriptionsLoading, setDescriptionsLoading] = useState(false)
-    const [images, setImages] = useState<Array<string>>(["", "", "", ""])
-    const [imagesLoading, setImagesLoading] = useState(false)
-    const [tags, setTags] = useState<Array<string>>([])
-    const [tagsLoading, setTagsLoading] = useState(false)
-    const [title, setTitle] = useState<string>("")
+    const [descriptions, setDescriptions] = useState<Array<string>>(["", "", "", ""]);
+    const [descriptionsLoading, setDescriptionsLoading] = useState(false);
+    const [images, setImages] = useState<Array<string>>(["", "", "", ""]);
+    const [imagesLoading, setImagesLoading] = useState(false);
+    const [tags, setTags] = useState<Array<string>>([]);
+    const [tagsLoading, setTagsLoading] = useState(false);
+    const [title, setTitle] = useState<string>("");
+    const [descriptionVariant, setDescriptionVariant] = useState(0);
+    const [imageVariant, setImageVariant] = useState(0);
+    const [isFirstDescriptionOnly, setIsFirstDescriptionOnly] = useState(true);
+    const [isFirstImageOnly, setIsFirstImageOnly] = useState(true);
 
     useEffect(() => {
         if (isCreateMode && !searchParam.has("title")){
@@ -49,6 +53,8 @@ const CreateCardPage = () => {
             const data = await generateImages({title: title});
             setImages(data.images)
             setImagesLoading(false)
+            setImageVariant(0)
+            setIsFirstImageOnly(false)
             toast.success("Генерация изображений завершена")
         } else {
             toast.warning("Пожалуйста дождитесь окончания текущей генерации изображений")
@@ -60,6 +66,8 @@ const CreateCardPage = () => {
             const data = await generateDescriptions({title: title});
             setDescriptions(data.descriptions)
             setDescriptionsLoading(false)
+            setDescriptionVariant(0)
+            setIsFirstDescriptionOnly(false)
             toast.success("Генерация описаний завершена")
         } else {
             toast.warning("Пожалуйста дождитесь окончания текущей генерации описаний")
@@ -94,6 +102,10 @@ const CreateCardPage = () => {
                     if (res[2].status ===  "fulfilled"){
                         setTags(res[2].value.tags)
                     }
+                    setDescriptionVariant(0)
+                    setImageVariant(0)
+                    setIsFirstDescriptionOnly(false)
+                    setIsFirstImageOnly(false)
                     toast.success("Генерация карточки завершена")
                     setImagesLoading(false)
                     setDescriptionsLoading(false)
@@ -127,9 +139,6 @@ const CreateCardPage = () => {
     const returnToCardListPage = () => {
         navigate("/");
     }
-
-    const [descriptionVariant, setDescriptionVariant] = useState(0);
-    const [imageVariant, setImageVariant] = useState(0);
     const removeTag = (tag: string) => {
         setTags(tags.filter(currentTag => currentTag !== tag))
     }
@@ -156,6 +165,8 @@ const CreateCardPage = () => {
                 regenerateAll={regenerateAll}
                 removeTag={removeTag}
                 addTag={addTag}
+                isFirstDescriptionOnly={isFirstDescriptionOnly}
+                isFirstImageOnly={isFirstImageOnly}
             />
         </div>
     )

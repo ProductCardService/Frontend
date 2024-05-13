@@ -27,12 +27,15 @@ interface CreateCardProps{
     regenerateDescriptions: () => void,
     regenerateTags: () => void,
     regenerateAll: () => void,
+    isFirstDescriptionOnly: boolean
+    isFirstImageOnly: boolean
 }
 const CreateCard: React.FC<CreateCardProps> = (props) => {
     const {
         title, saveCard, exit, description, descriptionVariant, setDescriptionVariant,
         imageVariant, setImageVariant, image, tags, removeTag, addTag,
-        regenerateImages, regenerateDescriptions, regenerateTags, regenerateAll
+        regenerateImages, regenerateDescriptions, regenerateTags, regenerateAll,
+        isFirstDescriptionOnly, isFirstImageOnly
     } = props;
     const [newTag, setNewTag] = useState<string>("");
 
@@ -41,11 +44,11 @@ const CreateCard: React.FC<CreateCardProps> = (props) => {
             <div className="card__image" style={{backgroundImage: `url(${image})`}}>
             </div>
             <div className="card__body">
-                <Switch currentVariant={imageVariant} setVariant={setImageVariant} regenerate={regenerateImages}/>
+                <Switch currentVariant={imageVariant} setVariant={setImageVariant} regenerate={regenerateImages} isFirstOnly={isFirstImageOnly}/>
                 <Heading title={title} />
                 <div className="card__content">
                     <Paragraph text={description}/>
-                    <Switch currentVariant={descriptionVariant} setVariant={setDescriptionVariant} regenerate={regenerateDescriptions}/>
+                    <Switch currentVariant={descriptionVariant} setVariant={setDescriptionVariant} regenerate={regenerateDescriptions} isFirstOnly={isFirstDescriptionOnly}/>
                     <div className="card__tags-container">
                         <div className="card__tags-items">
                             <Input

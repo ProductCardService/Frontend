@@ -7,11 +7,17 @@ import { ReactComponent as Logo } from './../../assets/regenerate.svg';
 interface SwitchProps{
     currentVariant: number,
     setVariant: (variant: number) => void,
-    regenerate: () => void
+    regenerate: () => void,
+    isFirstOnly: boolean
 }
 
 const Switch: React.FC<SwitchProps> = (props) => {
-    const {currentVariant, setVariant, regenerate} = props;
+    const {currentVariant, setVariant, regenerate, isFirstOnly} = props;
+    const setVariantWithChecking = (variant: number) => {
+        if (!isFirstOnly){
+            setVariant(variant);
+        }
+    }
     return (
         <div className="switches">
             <div className="switches__items">
@@ -19,8 +25,14 @@ const Switch: React.FC<SwitchProps> = (props) => {
                     [0, 1, 2, 3].map(variant => (
                         <span
                             key={variant}
-                            className={variant === currentVariant? "switch switch_active": "switch"}
-                            onClick={() => setVariant(variant)}
+                            className={
+                                isFirstOnly && variant !== currentVariant
+                                ? "switch switch_disabled"
+                                : variant === currentVariant
+                                        ? "switch switch_active"
+                                        : "switch"
+                            }
+                            onClick={() =>  setVariantWithChecking(variant)}
                         >
                             {`вар ${variant + 1}`}
                         </span>
