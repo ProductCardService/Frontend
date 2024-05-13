@@ -15,6 +15,8 @@ const router = createBrowserRouter([
         path: "/edit/:cardId",
         element: <CreateCardPage />
     }
-]);
+    ],
+    { basename: '/Frontend' },
+);
 
 export default router;
