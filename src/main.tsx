@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {RouterProvider} from "react-router-dom";
 import router from "./router/router.tsx";
@@ -9,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <>
       <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -24,5 +23,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           transition={Bounce}
       />
       <RouterProvider router={router}/>
-  </React.StrictMode>,
+  </>,
 )
