@@ -4,6 +4,5 @@ import svgr from '@svgr/rollup';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/Frontend/",
   plugins: [react(), svgr()],
 })

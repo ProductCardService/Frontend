@@ -23,3 +23,21 @@ VITE_MODE=dev
 ```env
 VITE_MODE=production
 ```
+
+## Развертывание в Github Pages
+Проверить, что в package.json
+```JSON
+{
+    "homepage": "https://productcardservice.github.io/Frontend/",
+}
+```
+Проверить, что в package.json
+```TypeScript
+export default defineConfig({
+  base: "/Frontend/",
+  plugins: [react(), svgr()],
+})
+```
+Проверить, что используется createHashRouter в router.tsx
+
+Выполнить команду `npm deploy`
