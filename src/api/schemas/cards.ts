@@ -9,9 +9,7 @@ interface CardImage {
     image: string;
 }
 
-interface CardList {
-    cards: Array<Card>;
-}
+type CardList = Array<Card>;
 
 interface CreateUpdateCard {
     title: string;

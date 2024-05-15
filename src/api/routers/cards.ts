@@ -1,5 +1,5 @@
 import {cardAxios} from "../axios.ts";
-import {CreateUpdateCard, Card, CardList, FullCard, CardImage} from '../schemas/cards.ts.ts';
+import {CreateUpdateCard, Card, CardList, FullCard, CardImage} from '../schemas/cards.ts';
 import {AxiosError} from "axios";
 import {mockCards, mockImages} from "../../mockData.ts";
 
@@ -24,7 +24,7 @@ const createCard = async (card: CreateUpdateCard): Promise<Card> => {
             }
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -36,15 +36,13 @@ const getCards = async (): Promise<CardList> => {
         return response.data;
     } catch (error) {
         if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                cards: [
-                    mockCards[0],
-                    mockCards[3]
-                ]
-            }
+            return [
+                mockCards[0],
+                mockCards[3]
+            ]
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -61,7 +59,7 @@ const getCardById = async (cardId: number): Promise<FullCard> => {
             return mockCards[cardId]
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -79,7 +77,7 @@ const updateCardById = async (cardId: number, card: CreateUpdateCard): Promise<C
             return {...mockCards[cardId]}
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -93,7 +91,7 @@ const deleteCardById = async (cardId: number): Promise<void> => {
             return;
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -110,7 +108,7 @@ const getCardImageById = async (cardId: number): Promise<CardImage> => {
             }
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 

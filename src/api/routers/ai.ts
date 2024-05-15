@@ -21,7 +21,7 @@ const generateDescriptions = async (prompt: Prompt): Promise<GeneratedDescriptio
             }
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при генерации");
     }
 }
 
@@ -39,7 +39,7 @@ const generateImages = async (prompt: Prompt): Promise<GeneratedImages> => {
             }
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при генерации");
     }
 }
 
@@ -57,7 +57,7 @@ const generateTags = async (prompt: Prompt): Promise<GeneratedTags> => {
             }
         }
         console.log(error);
-        throw Error("Ошибка");
+        throw Error("Возникла ошибка при генерации");
     }
 }
 
