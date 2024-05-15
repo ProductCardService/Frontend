@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 const CreateCardPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const [searchParam, ] = useSearchParams();
+    const [searchParam, ] = useSearchParams({title: ""});
     const params = useParams();
     const cardId = params.cardId
     const isCreateMode = location.pathname.startsWith("/create");
@@ -53,22 +53,27 @@ const CreateCardPage = () => {
             Promise.allSettled([generateImages(titleData), generateDescriptions(titleData), generateTags(titleData)])
                 .then(res => {
                     if (res[0].status ===  "fulfilled"){
-                        setImages(res[0].value.images)
+                        setImages(res[0].value.images);
                     }
                     if (res[1].status ===  "fulfilled"){
-                        setDescriptions(res[1].value.descriptions)
+                        setDescriptions(res[1].value.descriptions);
                     }
                     if (res[2].status ===  "fulfilled"){
-                        setTags(res[2].value.tags)
+                        setTags(res[2].value.tags);
                     }
-                    setDescriptionVariant(0)
-                    setImageVariant(0)
-                    setIsFirstDescriptionOnly(false)
-                    setIsFirstImageOnly(false)
-                    setImagesLoading(false)
-                    setDescriptionsLoading(false)
-                    setTagsLoading(false)
                 })
+            .catch(reason => {
+                toast.error(reason.toString())
+            })
+            .finally(() => {
+                setDescriptionVariant(0);
+                setImageVariant(0);
+                setIsFirstDescriptionOnly(false);
+                setIsFirstImageOnly(false);
+                setImagesLoading(false);
+                setDescriptionsLoading(false);
+                setTagsLoading(false);
+            })
         }
     }, [isCreateMode, searchParam, isEditMode, cardId, navigate]);
 
@@ -76,12 +81,19 @@ const CreateCardPage = () => {
     const regenerateImages = async () => {
         if (!imagesLoading){
             setImagesLoading(true)
-            const data = await generateImages({title: title});
-            setImages(data.images)
-            setImagesLoading(false)
-            setImageVariant(0)
-            setIsFirstImageOnly(false)
-            toast.success("Генерация изображений завершена")
+            generateImages({title: title})
+                .then(data => {
+                    setImages(data.images);
+                    toast.success("Генерация изображений завершена")
+                })
+                .catch(reason => {
+                    toast.error(reason.toString());
+                })
+                .finally(() => {
+                    setImagesLoading(false);
+                    setImageVariant(0);
+                    setIsFirstImageOnly(false);
+                })
         } else {
             toast.warning("Пожалуйста дождитесь окончания текущей генерации изображений")
         }
@@ -89,12 +101,19 @@ const CreateCardPage = () => {
     const regenerateDescriptions = async () => {
         if (!descriptionsLoading){
             setDescriptionsLoading(true)
-            const data = await generateDescriptions({title: title});
-            setDescriptions(data.descriptions)
-            setDescriptionsLoading(false)
-            setDescriptionVariant(0)
-            setIsFirstDescriptionOnly(false)
-            toast.success("Генерация описаний завершена")
+            generateDescriptions({title: title})
+                .then(data => {
+                    setDescriptions(data.descriptions);
+                    toast.success("Генерация описаний завершена");
+                })
+                .catch(reason => {
+                    toast.error(reason.toString());
+                })
+                .finally(() => {
+                    setDescriptionsLoading(false);
+                    setDescriptionVariant(0);
+                    setIsFirstDescriptionOnly(false);
+                })
         } else {
             toast.warning("Пожалуйста дождитесь окончания текущей генерации описаний")
         }
@@ -102,10 +121,17 @@ const CreateCardPage = () => {
     const regenerateTags = async () => {
         if (!tagsLoading){
             setTagsLoading(true)
-            const data = await generateTags({title: title});
-            setTags(data.tags)
-            setTagsLoading(false)
-            toast.success("Генерация тегов завершена")
+            generateTags({title: title})
+                .then(data => {
+                    setTags(data.tags);
+                    toast.success("Генерация тегов завершена")
+                })
+                .catch(reason => {
+                    toast.error(reason.toString());
+                })
+                .finally(() => {
+                    setTagsLoading(false)
+                })
         } else {
             toast.warning("Пожалуйста дождитесь окончания текущей генерации тэгов")
         }
@@ -120,22 +146,26 @@ const CreateCardPage = () => {
             Promise.allSettled([generateImages(titleData), generateDescriptions(titleData), generateTags(titleData)])
                 .then(res => {
                     if (res[0].status ===  "fulfilled"){
-                        setImages(res[0].value.images)
+                        setImages(res[0].value.images);
                     }
                     if (res[1].status ===  "fulfilled"){
-                        setDescriptions(res[1].value.descriptions)
+                        setDescriptions(res[1].value.descriptions);
                     }
                     if (res[2].status ===  "fulfilled"){
-                        setTags(res[2].value.tags)
+                        setTags(res[2].value.tags);
                     }
-                    setDescriptionVariant(0)
-                    setImageVariant(0)
-                    setIsFirstDescriptionOnly(false)
-                    setIsFirstImageOnly(false)
-                    toast.success("Генерация карточки завершена")
-                    setImagesLoading(false)
-                    setDescriptionsLoading(false)
-                    setTagsLoading(false)
+                })
+                .catch(reason => {
+                    toast.error(reason.toString())
+                })
+                .finally(() => {
+                    setDescriptionVariant(0);
+                    setImageVariant(0);
+                    setIsFirstDescriptionOnly(false);
+                    setIsFirstImageOnly(false);
+                    setImagesLoading(false);
+                    setDescriptionsLoading(false);
+                    setTagsLoading(false);
                 })
         } else if (tagsLoading && imagesLoading && descriptionsLoading){
             toast.warning("Пожалуйста дождитесь окончания генерации карточки")

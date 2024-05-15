@@ -30,17 +30,9 @@ const Card: React.FC<CardProps> = (props) => {
                     : <div className="card__image" style={{backgroundImage: `url(${image})`}}></div>
             }
             <div className="card__body">
-                {
-                    title !== ""
-                        ? <Heading title={title} />
-                        : <Skeleton height="23px"/>
-                }
+                <Heading title={title} />
                 <div className="card__content">
-                    {
-                        description === ""
-                            ? <Skeleton height="100px"/>
-                            : <div style={{height: "100px"}}><Paragraph text={description}/></div>
-                    }
+                    <div style={{height: "100px"}}><Paragraph text={description}/></div>
                     <div className="card__tags">
                         {
                             tags.map(tag => (

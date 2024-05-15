@@ -2,9 +2,10 @@ import Card from "../component/card/card.tsx";
 import NewCard from "../component/new-card/new-card.tsx";
 import { useNavigate } from "react-router-dom";
 import {useEffect, useState} from "react";
-import {FullCard} from "../api/schemas/cards.ts.ts";
+import {FullCard} from "../api/schemas/cards.ts";
 import {deleteCardById, getCards} from "../api/routers/cards.ts";
 import EmptyCard from "../component/card/empty-card.tsx";
+import {toast} from "react-toastify";
 
 const CardListPage = () => {
     const navigate = useNavigate();
@@ -13,7 +14,12 @@ const CardListPage = () => {
     useEffect(() => {
         getCards()
             .then(cardList => {
-                setCards(cardList.cards.map(card => ({...card, image: ""})));
+                setCards(cardList.map(card => ({...card, image: ""})));
+            })
+            .catch(reason => {
+                toast.error(reason.toString())
+            })
+            .finally(() => {
                 setIsCardsLoading(false);
             })
     }, []);
@@ -26,9 +32,17 @@ const CardListPage = () => {
     }
     const deleteCard = (cardId: number) => {
         deleteCardById(cardId)
-        .then(() => {
-            setCards(cards.filter(card => card.id !== cardId));
-        })
+            .then(() => {
+                cards.forEach(card => {
+                    if (card.id === cardId){
+                        toast.success(`Карточка "${card.title}" успешно удалена`)
+                    }
+                })
+                setCards(cards.filter(card => card.id !== cardId));
+            })
+            .catch(reason => {
+                toast.error(reason.toString())
+            })
     }
 
     return(
