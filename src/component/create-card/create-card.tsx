@@ -62,7 +62,7 @@ const CreateCard: React.FC<CreateCardProps> = (props) => {
                     {
                         descriptionsLoading
                         ? <Skeleton height="100px"/>
-                        : <div style={{height: "100px"}}><Paragraph text={description}/></div>
+                        : <div style={{height: "100px", overflowY: "auto"}}><Paragraph text={description}/></div>
                     }
                     <Switch currentVariant={descriptionVariant} setVariant={setDescriptionVariant} regenerate={regenerateDescriptions} isFirstOnly={isFirstDescriptionOnly}/>
                     <div className="card__tags-container">

@@ -32,7 +32,7 @@ const Card: React.FC<CardProps> = (props) => {
             <div className="card__body">
                 <Heading title={title} />
                 <div className="card__content">
-                    <div style={{height: "100px"}}><Paragraph text={description}/></div>
+                    <div style={{height: "100px", overflowY: "auto"}}><Paragraph text={description}/></div>
                     <div className="card__tags">
                         {
                             tags.map(tag => (
