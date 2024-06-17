@@ -1,11 +1,15 @@
 import {aiAxios} from "../axios.ts";
 import {GeneratedDescriptions, Prompt, GeneratedImages, GeneratedTags} from '../schemas/ai.ts';
-import {AxiosError} from "axios";
-import {mockDescriptions, mockImages, mockTags} from "../../mockData.ts";
+import axios, {AxiosError} from "axios";
 
 const GENERATE_DESCRIPTIONS_URL = "/generate/descriptions";
 const GENERATE_IMAGES_URL = "/generate/images";
 const GENERATE_TAGS_URL = "/generate/tags";
+
+
+interface Error {
+    message: string
+}
 
 const generateDescriptions = async (prompt: Prompt): Promise<GeneratedDescriptions> => {
     try{
@@ -15,13 +19,19 @@ const generateDescriptions = async (prompt: Prompt): Promise<GeneratedDescriptio
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                descriptions: mockDescriptions
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
             }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при генерации");
     }
 }
 
@@ -33,13 +43,19 @@ const generateImages = async (prompt: Prompt): Promise<GeneratedImages> => {
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                images: mockImages
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
             }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при генерации");
     }
 }
 
@@ -51,13 +67,19 @@ const generateTags = async (prompt: Prompt): Promise<GeneratedTags> => {
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                tags: mockTags
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
             }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при генерации");
     }
 }
 

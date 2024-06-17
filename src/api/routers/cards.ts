@@ -1,7 +1,6 @@
 import {cardAxios} from "../axios.ts";
 import {CreateUpdateCard, Card, CardList, FullCard, CardImage} from '../schemas/cards.ts';
-import {AxiosError} from "axios";
-import {mockCards, mockImages} from "../../mockData.ts";
+import axios, {AxiosError} from "axios";
 
 const CARDS_URL = "/cards";
 const CARD_WITH_ID_URL = "/cards/";
@@ -15,16 +14,19 @@ const createCard = async (card: CreateUpdateCard): Promise<Card> => {
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                id: 1,
-                title: card.title,
-                description: card.description,
-                tags: card.tags
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
             }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -35,14 +37,19 @@ const getCards = async (): Promise<CardList> => {
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return [
-                mockCards[0],
-                mockCards[3]
-            ]
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
+            }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -53,13 +60,19 @@ const getCardById = async (cardId: number): Promise<FullCard> => {
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            return mockCards[cardId]
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
+            }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -71,13 +84,19 @@ const updateCardById = async (cardId: number, card: CreateUpdateCard): Promise<C
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            return {...mockCards[cardId]}
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
+            }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -87,11 +106,19 @@ const deleteCardById = async (cardId: number): Promise<void> => {
             CARD_WITH_ID_URL + cardId.toString()
         );
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return;
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
+            }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
@@ -102,13 +129,19 @@ const getCardImageById = async (cardId: number): Promise<CardImage> => {
         );
         return response.data;
     } catch (error) {
-        if ((error as AxiosError).code === "ERR_NETWORK"){
-            return {
-                image: mockImages[cardId]
+        console.error(error);
+        const e = error as AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (e.response) {
+                const errorData = e.response.data as Error
+                throw Error(errorData.message);
+            } else if (e.request) {
+                throw Error("Ответ от сервера не пришел");
             }
+            throw Error("При создании запроса возникла ошибка");
+        } else {
+            throw Error("Возникла непредвиденная ошибка");
         }
-        console.log(error);
-        throw Error("Возникла ошибка при выполнении запроса");
     }
 }
 
